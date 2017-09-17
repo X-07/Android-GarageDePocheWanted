@@ -13,8 +13,11 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.jar.JarEntry;
 
 import fr.jlt.gdpw.R;
 import fr.jlt.gdpw.donneesDAO.Miniature;
@@ -24,8 +27,9 @@ import fr.jlt.gdpw.utils.Utils;
 
 
 public class MiniatureFicheActivity extends Activity {
-    String imageName = null;
-    Miniature miniature;
+    private String imageName = null;
+    private Miniature miniature;
+    private boolean trouveModifie = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +45,22 @@ public class MiniatureFicheActivity extends Activity {
         bdd.close();
         helper.close();
 
-        String ExternalStorageDirectoryPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        imageName = ExternalStorageDirectoryPath + miniature.getPhoto();
+        imageName = Utils.getExternalFilesDir(this) + miniature.getPhoto();
 
         TextView name = (TextView) findViewById(R.id.miniatureFicheModele);
         name.setText(miniature.getModele());
 
-        Bitmap bmp = BitmapFactory.decodeFile(imageName);
-
         ImageView img = (ImageView) findViewById(R.id.miniatureFichePhoto);
-        //img.setImageResource(imageId);
-        img.setImageBitmap(bmp);
+        Bitmap bmp = BitmapFactory.decodeFile(imageName);
+        if (bmp != null) {
+            img.setImageBitmap(bmp);
+        }
+        else {
+            img.setImageResource(R.drawable.silhouette_large);
+        }
 
-        TextView tit00 = (TextView) findViewById(R.id.miniatureFicheTit00);
+
+        TextView tit0A = (TextView) findViewById(R.id.miniatureFicheTit0A);
         TextView tit01 = (TextView) findViewById(R.id.miniatureFicheTit01);
         TextView tit02 = (TextView) findViewById(R.id.miniatureFicheTit02);
         TextView tit03 = (TextView) findViewById(R.id.miniatureFicheTit03);
@@ -66,7 +73,6 @@ public class MiniatureFicheActivity extends Activity {
         TextView tit10 = (TextView) findViewById(R.id.miniatureFicheTit10);
 
 
-        TextView lib00 = (TextView) findViewById(R.id.miniatureFicheLib00);
         TextView lib01 = (TextView) findViewById(R.id.miniatureFicheLib01);
         TextView lib02 = (TextView) findViewById(R.id.miniatureFicheLib02);
         TextView lib03 = (TextView) findViewById(R.id.miniatureFicheLib03);
@@ -79,14 +85,13 @@ public class MiniatureFicheActivity extends Activity {
         TextView lib10 = (TextView) findViewById(R.id.miniatureFicheLib10);
 
 
-        tit00.setText("Modèle");
-//        tit00.setTextColor(Color.rgb(54, 0, 127));
-        tit00.setTextColor(getResources().getColor(R.color.app_color));
-        tit00.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26.f);
-        tit00.setTypeface(null, Typeface.BOLD_ITALIC);
-        tit00.setPadding(tit00.getPaddingLeft(), 5, tit00.getPaddingRight(), tit00.getPaddingBottom());
-        tit00.setGravity(Gravity.LEFT);
-        lib00.setText("");
+        CheckBox checkBox = (CheckBox) findViewById(R.id.miniatureFicheCheckBox);
+        if ("0".equals(miniature.getTrouve())) {
+            checkBox.setChecked(false);
+        }
+        else {
+            checkBox.setChecked(true);
+        }
 
         tit01.setText("Objectif :");
         tit01.setTypeface(lib05.getTypeface(), Typeface.BOLD);
@@ -100,13 +105,12 @@ public class MiniatureFicheActivity extends Activity {
         tit03.setText("Carrosserie :");
         lib03.setText(miniature.getCarrosserie());
 
-
         tit04.setText("Miniature");
 //        tit04.setTextColor(Color.rgb(54, 0, 127));
         tit04.setTextColor(getResources().getColor(R.color.app_color));
         tit04.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26.f);
         tit04.setTypeface(null, Typeface.BOLD_ITALIC);
-        tit04.setPadding(tit00.getPaddingLeft(), 5, tit00.getPaddingRight(), 20);
+        tit04.setPadding(tit0A.getPaddingLeft(), 5, tit0A.getPaddingRight(), 20);
         tit04.setGravity(Gravity.LEFT);
         lib04.setText("");
 
@@ -135,7 +139,12 @@ public class MiniatureFicheActivity extends Activity {
 
     // termine l'activité (donc retour à l'activité précédente) si on clique sur la vue
     public void handleClick(View v) {
-        setResult(RESULT_CANCELED);
+        if (trouveModifie) {
+            setResult(RESULT_OK);
+        }
+        else {
+            setResult(RESULT_CANCELED);
+        }
         // On termine cette activité
         finish();
     }
@@ -144,7 +153,12 @@ public class MiniatureFicheActivity extends Activity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // Désactive la touche retour
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            setResult(RESULT_CANCELED);
+            if (trouveModifie) {
+                setResult(RESULT_OK);
+            }
+            else {
+                setResult(RESULT_CANCELED);
+            }
             // On termine cette activité
             finish();
             return true;
@@ -160,4 +174,22 @@ public class MiniatureFicheActivity extends Activity {
         startActivity(intent);
     }
 
+    public void handleTrouveClick(View v) {
+        trouveModifie = true;
+        CheckBox checkBox = (CheckBox) findViewById(R.id.miniatureFicheCheckBox);
+        if (checkBox.isChecked()) {
+            miniature.setTrouve("1");
+        }
+        else {
+            miniature.setTrouve("0");
+        }
+
+        BddSQLiteHelper helper = new BddSQLiteHelper(this);
+        SQLiteDatabase bdd = helper.getReadableDatabase();
+
+        MiniatureBDD.upDateTrouve(miniature, bdd);
+
+        bdd.close();
+        helper.close();
+    }
 }

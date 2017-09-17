@@ -36,11 +36,12 @@ public class MiniaturePhotoActivity extends Activity {
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
-        //Bitmap bimtBitmap = BitmapFactory.decodeResource(getResources(), idPhoto, options);
         Bitmap bimtBitmap = BitmapFactory.decodeFile(imageName);
+        if (bimtBitmap == null) {
+            bimtBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.silhouette_large, options);
+        }
         mImaView.setImageBitmap(bimtBitmap);
         usingSimpleImage(mImaView);
-
     }
 
     public void usingSimpleImage(ImageView imageView) {

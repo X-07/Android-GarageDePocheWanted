@@ -9,4 +9,6 @@ public interface ActivityCste {
 
     int REQUEST_CODE_SORT = 200;
 
+    int REQUEST_CODE_LOAD_BDD = 300;
+
 }

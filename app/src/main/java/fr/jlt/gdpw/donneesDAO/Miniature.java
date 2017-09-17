@@ -20,9 +20,6 @@ public class Miniature {
     private String fabricant = null;
     /** marque */
     private String marque = null;
-    /** photoSmall */
-    //private Integer photoSmall = null;
-    private String photoSmall = null;
     /** photo */
     //private Integer photo = null;
     private String photo = null;
@@ -32,6 +29,8 @@ public class Miniature {
     private String reference = null;
     /** prix */
     private String prix = null;
+    /** trouve */
+    private String trouve = null;
 
     public String toString() {
         StringBuffer sb = new StringBuffer();
@@ -43,11 +42,11 @@ public class Miniature {
         sb.append("editeur : ").append(editeur).append("\n");
         sb.append("fabricant : ").append(fabricant).append("\n");
         sb.append("marque : ").append(marque).append("\n");
-        sb.append("photoSmall : ").append(photoSmall).append("\n");
         sb.append("photo : ").append(photo).append("\n");
         sb.append("preference : ").append(preference).append("\n");
         sb.append("reference : ").append(reference).append("\n");
         sb.append("prix : ").append(prix).append("\n");
+        sb.append("trouve : ").append(trouve).append("\n");
         return sb.toString();
     }
 
@@ -140,20 +139,20 @@ public class Miniature {
         this.prix = prix;
     }
 
-    public String getPhotoSmall() {
-        return photoSmall;
-    }
-
-    public void setPhotoSmall(String photoSmall) {
-        this.photoSmall = photoSmall;
-    }
-
     public String getPhoto() {
         return photo;
     }
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getTrouve() {
+        return trouve;
+    }
+
+    public void setTrouve(String trouve) {
+        this.trouve = trouve;
     }
 
 }

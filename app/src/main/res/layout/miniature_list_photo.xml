@@ -19,6 +19,7 @@
             android:layout_alignParentTop="true"
             android:paddingLeft="5dp"
             android:paddingRight="10dp"
+            android:onClick="handleBddLoadClick"
             android:src="@mipmap/ic_minicar_logo"
             />
         <TextView

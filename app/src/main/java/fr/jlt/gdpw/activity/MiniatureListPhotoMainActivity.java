@@ -48,6 +48,12 @@ public class MiniatureListPhotoMainActivity extends Activity {
         helper = new BddSQLiteHelper(this);
         bdd = helper.getReadableDatabase();
         cursor = MiniatureBDD.getAllList(bdd, ordre, sens);
+        if (cursor.getCount() == 0) {
+            // la base est vide ==> il faut la recharger
+            Intent intent = new Intent(context, BddLoadActivity.class);
+            startActivityForResult(intent, ActivityCste.REQUEST_CODE_LOAD_BDD);
+        }
+
 
         textView = (TextView) findViewById(R.id.miniatureListPhotoNbFiche);
         textView.setText("[ " + String.valueOf(cursor.getCount()) + " ]");
@@ -103,6 +109,17 @@ public class MiniatureListPhotoMainActivity extends Activity {
                 Toast.makeText(this, "Opération annulée", Toast.LENGTH_SHORT).show();
             }
         }
+        else if (ActivityCste.REQUEST_CODE_LOAD_BDD == requestCode) {
+            // Vérifie que le résultat est OK
+            if (resultCode == RESULT_OK) {
+                restart();
+
+                // Si l'activité est annulé
+            } else if (resultCode == RESULT_CANCELED) {
+                // On affiche que l'opération est annulée
+                Toast.makeText(this, "Chargement de la base annulé", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void restart() {
@@ -119,4 +136,10 @@ public class MiniatureListPhotoMainActivity extends Activity {
         Intent intent = new Intent(this, SortFicheActivity.class);
         startActivityForResult(intent, ActivityCste.REQUEST_CODE_SORT);
     }
+
+    public void handleBddLoadClick(View v) {
+        Intent intent = new Intent(context, BddLoadActivity.class);
+        startActivityForResult(intent, ActivityCste.REQUEST_CODE_LOAD_BDD);
+    }
+
 }

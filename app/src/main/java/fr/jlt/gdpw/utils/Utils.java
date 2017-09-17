@@ -1,8 +1,17 @@
 package fr.jlt.gdpw.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -138,25 +147,122 @@ public class Utils {
     }
 
 
-    public static int calculateInSampleSize2(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
+//    public static int calculateInSampleSize2(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+//        // Raw height and width of image
+//        final int height = options.outHeight;
+//        final int width = options.outWidth;
+//        int inSampleSize = 1;
+//
+//        if (height > reqHeight || width > reqWidth) {
+//
+//            final int halfHeight = height / 2;
+//            final int halfWidth = width / 2;
+//
+//            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+//            // height and width larger than the requested height and width.
+//            while ((halfHeight / inSampleSize) >= reqHeight && (halfWidth / inSampleSize) >= reqWidth) {
+//                inSampleSize *= 2;
+//            }
+//        }
+//
+//        return inSampleSize;
+//    }
 
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) >= reqHeight && (halfWidth / inSampleSize) >= reqWidth) {
-                inSampleSize *= 2;
-            }
+    public static void makeDirs(File file) {
+        String path = file.getParent();
+        File dir = new File(path);
+        if (!dir.exists()) {
+            dir.mkdirs();
         }
-
-        return inSampleSize;
     }
 
+    public static void copyFile(File source, File dest) {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            try {
+                is = new FileInputStream(source);
+                os = new FileOutputStream(dest);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) > 0) {
+                    os.write(buffer, 0, length);
+                }
+            }
+            catch (Exception e) {
+                Log.d("copyFile", e.getMessage());
+            }
+            finally {
+                if (os != null) {
+                    os.close();
+                }
+                if (is != null) {
+                    is.close();
+                }
+            }
+        }
+        catch (Exception e) {
+            Log.d("copyFile", e.getMessage());
+        }
+    }
+
+    public static void StoreImage(Bitmap myImage, File file) {
+        FileOutputStream fileOutputStream = null;
+        BufferedOutputStream bos = null;
+        try {
+            try {
+                fileOutputStream = new FileOutputStream(file);
+                bos = new BufferedOutputStream(fileOutputStream);
+                myImage.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+            }
+            catch (Exception e) {
+                Log.d("StoreImage", e.getMessage());
+            }
+            finally {
+                if (bos != null) {
+                    bos.flush();
+                    bos.close();
+                }
+            }
+        }
+        catch (Exception e) {
+            Log.d("StoreImage", e.getMessage());
+        }
+    }
+
+    public static String getExternalStorageDirectory(Context context) {
+        String path = getExternalFilesDir(context);
+        int pos = path.lastIndexOf("/Android/");
+        if (pos == -1 || pos == 0)
+            return null;
+
+        return path.substring(0, pos);
+    }
+
+    public static String getExternalFilesDir(Context context) {
+        File[] sds = ContextCompat.getExternalFilesDirs(context, null);
+        if (sds.length > 1) {
+            return sds[1].getAbsolutePath();
+        } else {
+            return sds[0].getAbsolutePath();
+        }
+    }
+
+    public static String getExternalCacheDir(Context context) {
+        File[] sds = ContextCompat.getExternalCacheDirs(context);
+        if (sds.length > 1) {
+            return sds[1].getAbsolutePath();
+        } else {
+            return sds[0].getAbsolutePath();
+        }
+    }
+
+    public static void deleteRecursive(File fileOrDirectory) {
+        if (fileOrDirectory.isDirectory()) {
+            for (File child : fileOrDirectory.listFiles()) {
+                deleteRecursive(child);
+            }
+        }
+        fileOrDirectory.delete();
+    }
 }

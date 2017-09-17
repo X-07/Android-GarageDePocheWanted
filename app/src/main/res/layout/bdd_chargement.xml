@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/bddLoadTit1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="70dp"
+        android:textSize="25sp"
+        android:textColor="#36007F"
+        android:textStyle="bold"
+        android:text="Chargement de la Base"
+        />
+
+    <TextView
+        android:id="@+id/bddLoadSTit1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bddLoadTit1"
+        android:layout_marginBottom="5dp"
+        android:textSize="16sp"
+        android:textColor="#36007F"
+        android:text="A partir du fichier : "
+        />
+
+    <TextView
+        android:id="@+id/bddLoadFileName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/bddLoadSTit1"
+        android:paddingLeft="10dp"
+
+        android:singleLine="true"
+        android:scrollHorizontally="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit ="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:text="Path/FileName"
+        />
+
+    <Button
+        android:id="@+id/bddLoadBoutonModifier"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_below="@+id/bddLoadFileName"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
+        android:layout_centerHorizontal="true"
+        android:background="@mipmap/ic_btn_light"
+        android:textAllCaps="false"
+        android:textStyle="bold|italic"
+        android:text="Modifier"
+        android:textColor="#ffa3a3a3"
+        android:typeface="serif"
+        />
+
+
+    <RadioGroup
+        android:id="@+id/bddLoadRadioGroup1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bddLoadLayout01"
+        android:paddingLeft="40dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        >
+
+        <RadioButton
+            android:id="@+id/bddLoadRadio10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="Ajout (défaut)"
+            android:layout_weight="1"
+            />
+
+        <RadioButton
+            android:id="@+id/bddLoadRadio11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="Réinitailiser"
+            android:layout_weight="1"
+            />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/bddLoadLayout01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        >
+        <Button
+            android:id="@+id/bddLoadBoutonValider"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:background="@mipmap/ic_btn_light"
+            android:textAllCaps="false"
+            android:textStyle="bold|italic"
+            android:text="Valider"
+            android:textColor="#ff0000ca"
+            android:typeface="serif"
+            />
+        <Button
+            android:id="@+id/bddLoadBoutonAnnuler"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/ic_btn_dark"
+            android:textAllCaps="false"
+            android:textStyle="bold|italic"
+            android:text="Annuler"
+            android:textColor="#ffffffff"
+            android:typeface="serif"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

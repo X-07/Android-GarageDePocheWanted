@@ -1,5 +1,7 @@
 package fr.jlt.gdpw.metier;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by jluc1404x on 18/07/15.
  */
@@ -17,11 +19,11 @@ public interface TableCreateCste {
                     MiniatureCste.EDITEUR + " TEXT, " +
                     MiniatureCste.FABRICANT + " TEXT, " +
                     MiniatureCste.MARQUE + " TEXT, " +
-                    MiniatureCste.PHOTO_SMALL + " TEXT, " +
                     MiniatureCste.PHOTO + " TEXT, " +
                     MiniatureCste.PREFERENCE + " TEXT, " +
                     MiniatureCste.REFERENCE + " TEXT, " +
-                    MiniatureCste.PRIX + " TEXT " +
+                    MiniatureCste.PRIX + " TEXT, " +
+                    MiniatureCste.TROUVE + " TEXT " +
                     ")";
 
 

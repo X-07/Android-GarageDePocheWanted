@@ -57,30 +57,43 @@
                 />
 
             <LinearLayout
+                android:id="@+id/miniatureFicheLL0A"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:onClick="handleClick"
                 >
                 <TextView
-                    android:id="@+id/miniatureFicheTit00"
-                    android:layout_width="160dp"
+                    android:id="@+id/miniatureFicheTit0A"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textColor="#404040"
-                    android:gravity="right"
-                    android:text="TextView"
-                    />
-                <TextView
-                    android:id="@+id/miniatureFicheLib00"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="26sp"
                     android:textColor="@color/app_color"
-                    android:text="TextView"
-                    android:layout_marginLeft="@dimen/fiche_text_margin"
+                    android:textStyle="bold|italic"
+                    android:gravity="left"
+                    android:text="Modèle"
                     />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal"
+                    android:onClick="handleClick"
+                    android:layout_marginRight="5dp"
+                    android:gravity="right"
+                    >
+                    <CheckBox
+                        android:id="@+id/miniatureFicheCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="26sp"
+                        android:textColor="@color/app_color"
+                        android:textStyle="bold"
+                        android:text=" Trouvé"
+                        android:onClick="handleTrouveClick"
+                        />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

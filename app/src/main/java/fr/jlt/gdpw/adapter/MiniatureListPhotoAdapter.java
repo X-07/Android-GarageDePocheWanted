@@ -6,8 +6,12 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +19,7 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.StringTokenizer;
 
 import fr.jlt.gdpw.R;
@@ -130,6 +135,25 @@ public class MiniatureListPhotoAdapter extends CursorAdapter {
         holder.separator.setVisibility(visibilite);
         // Valorise les champs des sous vues, à partir du cursor
         holder.textViewName.setText(cursor.getString(cursor.getColumnIndex(MiniatureCste.RUBRIQUE)));
+        if ("1".equals(cursor.getString(cursor.getColumnIndex(MiniatureCste.TROUVE)))) {
+            holder.textViewName.setPaintFlags(holder.textViewName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            view.setBackgroundColor(context.getResources().getColor(R.color.app_color));
+            holder.textViewName.setTextColor(Color.WHITE);
+            holder.textViewLib1.setTextColor(Color.WHITE);
+            holder.textViewLib2.setTextColor(Color.WHITE);
+            holder.textViewLib3.setTextColor(Color.WHITE);
+            holder.textViewLib4.setTextColor(Color.WHITE);
+        }
+        else {
+            holder.textViewName.setPaintFlags(holder.textViewName.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+            view.setBackgroundColor(Color.WHITE);
+            holder.textViewName.setTextColor(context.getResources().getColor(R.color.app_color));
+            holder.textViewLib1.setTextColor(Color.GRAY);
+            holder.textViewLib2.setTextColor(Color.GRAY);
+            holder.textViewLib3.setTextColor(Color.GRAY);
+            holder.textViewLib4.setTextColor(Color.BLACK);
+        }
+
         holder.textViewLib1.setText(cursor.getString(cursor.getColumnIndex(MiniatureCste.MARQUE)));
         holder.textViewLib2.setText(Utils.convertDate(cursor.getString(cursor.getColumnIndex(MiniatureCste.DATESORTIE))));
         StringBuffer sb = new StringBuffer();
@@ -138,24 +162,35 @@ public class MiniatureListPhotoAdapter extends CursorAdapter {
         }
         sb.append(cursor.getString(cursor.getColumnIndex(MiniatureCste.REFERENCE)));
         sb.append(" - ");
-        sb.append(Utils.getPreference(cursor.getString(cursor.getColumnIndex(MiniatureCste.PREFERENCE))));
+        if ("1".equals(cursor.getString(cursor.getColumnIndex(MiniatureCste.TROUVE)))) {
+            sb.append("trouvé".toUpperCase());
+        }
+        else {
+            sb.append(Utils.getPreference(cursor.getString(cursor.getColumnIndex(MiniatureCste.PREFERENCE))));
+        }
         holder.textViewLib3.setText(sb.toString());
         holder.textViewLib4.setText(cursor.getString(cursor.getColumnIndex(MiniatureCste.PRIX)) + " €");
-        //holder.imageView.setImageResource(cursor.getInt(cursor.getColumnIndex(MiniatureCste.PHOTO_SMALL)));
 
-        String ExternalStorageDirectoryPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String imageName = ExternalStorageDirectoryPath + cursor.getString(cursor.getColumnIndex(MiniatureCste.PHOTO));
-
-        //Bitmap bmp = BitmapFactory.decodeFile(imageNameSmall);
-        Bitmap bmp = Utils.decodeSampledBitmapFromUri(imageName, 200, 150);
-        holder.imageView.setImageBitmap(bmp);
-//        int idPhoto = cursor.getInt(cursor.getColumnIndex(MiniatureCste.PHOTO_SMALL));
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inScaled = false;
-//        Bitmap bimtBitmap = BitmapFactory.decodeResource(context.getResources(), idPhoto, options);
-//        holder.imageView.setImageBitmap(bimtBitmap);
+        String imageName = cursor.getString(cursor.getColumnIndex(MiniatureCste.PHOTO));
+        Bitmap bmp = BitmapFactory.decodeFile(Utils.getExternalCacheDir(context) + imageName);
+        if (bmp != null) {
+            holder.imageView.setImageBitmap(bmp);
+        }
+        else {
+            File fileDest = new File(Utils.getExternalFilesDir(context), imageName);
+            File fileCacheDest = new File(Utils.getExternalCacheDir(context), imageName);
+            Utils.makeDirs(fileCacheDest);
+            bmp = Utils.decodeSampledBitmapFromUri(fileDest.getAbsolutePath(), 200, 150);
+            if (bmp != null) {
+                Utils.StoreImage(bmp, fileCacheDest);
+                holder.imageView.setImageBitmap(bmp);
+            }
+            else {
+                holder.imageView.setImageResource(R.drawable.silhouette_small);
+            }
+        }
         // on stocke le nom de la grande photo en tant que tag dans la petite photo
-        holder.imageView.setTag(imageName);
+        holder.imageView.setTag(Utils.getExternalFilesDir(context) + imageName);
     }
 
     /**

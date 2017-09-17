@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="fr.jlt.gdpw" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -39,6 +40,13 @@
         <activity
             android:name=".activity.SortFicheActivity"
             android:label="Critères de tri"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <activity
+            android:name=".activity.BddLoadActivity"
+            android:label="Chargement BDD"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             >

@@ -3,7 +3,6 @@ package fr.jlt.gdpw.table;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import fr.jlt.gdpw.donneesDAO.Miniature;
 import fr.jlt.gdpw.execption.ElementAbsentException;
@@ -27,11 +26,11 @@ public class MiniatureBDD {
             .append(MiniatureCste.EDITEUR).append(", ")
             .append(MiniatureCste.FABRICANT).append(", ")
             .append(MiniatureCste.MARQUE).append(", ")
-            .append(MiniatureCste.PHOTO_SMALL).append(", ")
             .append(MiniatureCste.PHOTO).append(", ")
             .append(MiniatureCste.PREFERENCE).append(", ")
             .append(MiniatureCste.REFERENCE).append(", ")
-            .append(MiniatureCste.PRIX).append(" ")
+            .append(MiniatureCste.PRIX).append(", ")
+            .append(MiniatureCste.TROUVE).append(" ")
             .append("FROM ").append(MiniatureCste.NAME).append(" ") ;
 
 
@@ -42,10 +41,10 @@ public class MiniatureBDD {
             .append(MiniatureCste.DATESORTIE).append(", ")
             .append(MiniatureCste.MARQUE).append(", ")
             .append(MiniatureCste.PREFERENCE).append(", ")
-            .append(MiniatureCste.PHOTO_SMALL).append(", ")
             .append(MiniatureCste.PHOTO).append(", ")
             .append(MiniatureCste.REFERENCE).append(", ")
-            .append(MiniatureCste.PRIX).append(" ");
+            .append(MiniatureCste.PRIX).append(", ")
+            .append(MiniatureCste.TROUVE).append(" ") ;
 
     private static StringBuffer selectListTab = new StringBuffer()
             .append("FROM ").append(MiniatureCste.NAME).append(" ");
@@ -73,11 +72,11 @@ public class MiniatureBDD {
         values.put(MiniatureCste.EDITEUR, miniature.getEditeur());
         values.put(MiniatureCste.FABRICANT, miniature.getFabricant());
         values.put(MiniatureCste.MARQUE, miniature.getMarque());
-        values.put(MiniatureCste.PHOTO_SMALL, miniature.getPhotoSmall());
         values.put(MiniatureCste.PHOTO, miniature.getPhoto());
         values.put(MiniatureCste.PREFERENCE, miniature.getPreference());
         values.put(MiniatureCste.REFERENCE, miniature.getReference());
         values.put(MiniatureCste.PRIX, miniature.getPrix());
+        values.put(MiniatureCste.TROUVE, miniature.getTrouve());
 
         long res = bdd.insert(MiniatureCste.NAME, null, values);
         return (int) res;
@@ -141,11 +140,11 @@ public class MiniatureBDD {
         table.setEditeur(cursor.getString(MiniatureCste.COL_EDITEUR));
         table.setFabricant(cursor.getString(MiniatureCste.COL_FABRICANT));
         table.setMarque(cursor.getString(MiniatureCste.COL_MARQUE));
-        table.setPhotoSmall(cursor.getString(MiniatureCste.COL_PHOTO_SMALL));
         table.setPhoto(cursor.getString(MiniatureCste.COL_PHOTO));
         table.setPreference(cursor.getString(MiniatureCste.COL_PREFERENCE));
         table.setReference(cursor.getString(MiniatureCste.COL_REFERENCE));
         table.setPrix(cursor.getString(MiniatureCste.COL_PRIX));
+        table.setTrouve(cursor.getString(MiniatureCste.COL_TROUVE));
 
         return table;
     }
@@ -177,6 +176,30 @@ public class MiniatureBDD {
             cursor.moveToFirst();
         }
         return cursor;
+    }
+
+    public static int upDateTrouve(Miniature miniature, SQLiteDatabase bdd) {
+        // modification d'un enregistrement
+        // valeur de retour : (int) nombre de lignes affectées par la requête
+
+        ContentValues values = new ContentValues();
+        values.put(MiniatureCste.ID, miniature.getId());
+        values.put(MiniatureCste.TROUVE, miniature.getTrouve());
+
+        StringBuffer where = new StringBuffer().append(MiniatureCste.ID).append(" = ?");
+        String[] whereArgs = {String.valueOf(miniature.getId())};
+
+        return bdd.update(MiniatureCste.NAME, values, where.toString(), whereArgs);
+    }
+
+    public static int delete(String modele, SQLiteDatabase bdd) {
+        // suppression d'un enregistrement
+        // valeur de retour : (int) nombre de lignes affectées par la clause WHERE, 0 sinon
+
+        StringBuffer where = new StringBuffer().append(MiniatureCste.RUBRIQUE).append(" = ?");
+        String[] whereArgs = {modele};
+
+        return bdd.delete(MiniatureCste.NAME, where.toString(), whereArgs);
     }
 
 }

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import fr.jlt.gdpw.utils.ImportMiniature;
-
 /**
  * Created by jluc1404x on 18/07/15.
  */
@@ -29,8 +27,8 @@ public class BddSQLiteHelper extends SQLiteOpenHelper {
         // commande SQL pour Créer la table:TableExemple(col1,col2,col3,col4)
         bdd.execSQL(TableCreateCste.CREATION_TABLE_MINIATURE);
 
-        ImportMiniature importMiniature = new ImportMiniature(ctx, bdd);
-        importMiniature.importFile();
+ //       ImportMiniature importMiniature = new ImportMiniature(ctx, bdd);
+ //       importMiniature.importFile();
     }
 
     @Override
