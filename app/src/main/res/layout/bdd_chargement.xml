@@ -10,9 +10,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="40dp"
         android:textSize="25sp"
-        android:textColor="#36007F"
+        android:textColor="@color/app_blue1"
         android:textStyle="bold"
         android:text="Chargement de la Base"
         />
@@ -23,9 +23,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/bddLoadTit1"
         android:layout_marginBottom="5dp"
+        android:textStyle="bold"
         android:textSize="16sp"
-        android:textColor="#36007F"
-        android:text="A partir du fichier : "
+        android:textColor="@color/app_blue1"
+        android:text=" A partir du fichier : "
         />
 
     <TextView
@@ -45,7 +46,7 @@
 
         android:textSize="15sp"
         android:textStyle="bold"
-        android:textColor="#000000"
+        android:textColor="@color/app_black1"
         android:text="Path/FileName"
         />
 
@@ -54,47 +55,93 @@
         android:layout_width="wrap_content"
         android:layout_height="37dp"
         android:layout_below="@+id/bddLoadFileName"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
         android:background="@mipmap/ic_btn_light"
         android:textAllCaps="false"
         android:textStyle="bold|italic"
         android:text="Modifier"
-        android:textColor="#ffa3a3a3"
+        android:textColor="@color/app_gray2"
         android:typeface="serif"
         />
 
 
+    <TextView
+        android:id="@+id/bddLoadSTit2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bddLoadBoutonModifier"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/app_blue1"
+        android:text=" Traitement préalable : "
+        />
+
+
+    <CheckBox
+        android:id="@+id/bddLoadCheckBoxPurge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/bddLoadSTit2"
+        android:textSize="15sp"
+        android:textColor="@color/app_black1"
+        android:text=" Purger la base avant le chargement\n\t\t\t\t\t (réinitialisation)."
+        />
+
+    <TextView
+        android:id="@+id/bddLoadSTit3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bddLoadCheckBoxPurge"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/app_blue1"
+        android:text=" Gestion des doublons : "
+        />
+
     <RadioGroup
-        android:id="@+id/bddLoadRadioGroup1"
+        android:id="@+id/bddLoadRadioGroup2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bddLoadLayout01"
+        android:layout_below="@+id/bddLoadSTit3"
         android:paddingLeft="40dp"
         android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         >
 
         <RadioButton
-            android:id="@+id/bddLoadRadio10"
-            android:layout_width="0dp"
+            android:id="@+id/bddLoadRadio20"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:text="Ajout (défaut)"
+            android:textColor="@color/app_black1"
+            android:text="Remplacer la fiche existante (défaut).\n\t\t- correspond à une mise à jour"
+            android:layout_weight="1"
+            android:checked="true"
+            />
+
+        <RadioButton
+            android:id="@+id/bddLoadRadio21"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/app_black1"
+            android:text="Garder la fiche existante et ignorer la nouvelle."
             android:layout_weight="1"
             />
 
         <RadioButton
-            android:id="@+id/bddLoadRadio11"
-            android:layout_width="0dp"
+            android:id="@+id/bddLoadRadio22"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:text="Réinitailiser"
+            android:textColor="@color/app_black1"
+            android:text="Ajouter une nouvelle fiche (créer un doublon)."
             android:layout_weight="1"
             />
     </RadioGroup>
@@ -104,7 +151,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/bddLoadCheckBox"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
@@ -117,7 +164,7 @@
             android:textAllCaps="false"
             android:textStyle="bold|italic"
             android:text="Valider"
-            android:textColor="#ff0000ca"
+            android:textColor="@color/app_blue2"
             android:typeface="serif"
             />
         <Button
@@ -129,9 +176,23 @@
             android:textAllCaps="false"
             android:textStyle="bold|italic"
             android:text="Annuler"
-            android:textColor="#ffffffff"
+            android:textColor="@color/app_white1"
             android:typeface="serif"
             />
     </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/bddLoadCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="15sp"
+        android:textColor="@color/app_blue1"
+        android:text=" Modifier le répertoire de contrôle de la SD Card"
+        android:onClick="handleDirSDCardClick"
+        />
 
 </RelativeLayout>

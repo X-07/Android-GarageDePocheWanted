@@ -1,9 +1,13 @@
 package fr.jlt.gdpw.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.provider.DocumentFile;
 import android.util.Log;
 
 import java.io.BufferedOutputStream;
@@ -170,19 +174,20 @@ public class Utils {
 //        return inSampleSize;
 //    }
 
-    public static void makeDirs(File file) {
+    public static void makeDirs(File file, boolean putNomedia) {
         String path = file.getParent();
         File dir = new File(path);
         if (!dir.exists()) {
             dir.mkdirs();
 
-            // Fichier qui va indiquer au système que notre dossier ne contient rien qui intéresse la galerie
-            File nomedia = new File(path + "/.nomedia");
-            try {
-                nomedia.createNewFile();
-            }
-            catch (IOException e) {
-                Log.d("makeDirs '.nomedia' ", e.getMessage());
+            if (putNomedia) {
+                // Fichier qui va indiquer au système que notre dossier ne contient rien qui intéresse la galerie
+                File nomedia = new File(path + "/.nomedia");
+                try {
+                    nomedia.createNewFile();
+                } catch (IOException e) {
+                    Log.d("makeDirs '.nomedia' ", e.getMessage());
+                }
             }
         }
     }
@@ -288,4 +293,184 @@ public class Utils {
         }
         fileOrDirectory.delete();
     }
+
+    public static void deleteAllFiles(final File file, final Context ctx) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+            String uriString = preferences.getString("TREE_URI", null);
+            if (uriString == null) {
+                return;
+            }
+
+            Uri treeUri = Uri.parse(uriString);
+            if (treeUri == null) {
+                return;
+            }
+
+            DocumentFile documentFile = DocumentFile.fromTreeUri(ctx, treeUri);
+            if (documentFile == null) {
+                return;
+            }
+            if (!documentFile.canWrite()) {
+                return;
+            }
+
+            String rootSD = "/storage" + uriString.substring(uriString.lastIndexOf("tree") + "tree" .length(), uriString.length());
+            rootSD = rootSD.replaceAll("%3A", "/").replaceAll("%2F", "/");
+            String[] partsRootSD = rootSD.split("\\/");
+            String[] partsFile = file.getAbsolutePath().split("\\/");
+            if (partsRootSD.length > partsFile.length) {
+                return;
+            }
+            for (int i = 0; i < partsRootSD.length; i++) {
+                if (!partsRootSD[i].equals(partsFile[i])) {
+                    return;
+                }
+            }
+
+            if (partsFile.length > partsRootSD.length) {
+                for (int i = partsRootSD.length; i < partsFile.length; i++) {
+                    DocumentFile nextDocument = documentFile.findFile(partsFile[i]);
+                    if (nextDocument == null) {
+                        return;
+                    }
+                    documentFile = nextDocument;
+                }
+            }
+
+            if (documentFile != null) {
+                for (DocumentFile docFile : documentFile.listFiles()) {
+                    if (docFile.canWrite()) {
+                        docFile.delete();
+                    }
+                }
+            }
+        }
+        else {
+            deleteRecursive(file);
+        }
+
+    }
+
+//    public static void deleteRecursive(File fileOrDirectory, final Context ctx) {
+//        if (fileOrDirectory.isDirectory()) {
+//            for (File child : fileOrDirectory.listFiles()) {
+//                deleteRecursive(child, ctx);
+//            }
+//        }
+//
+//        // First try the normal deletion.
+//        if (fileOrDirectory.delete()) {
+//            return;
+//        }
+//
+//        // Try with Storage Access Framework.
+//        if (android.os.Build.VERSION.SDK_INT >= 23) {
+//            DocumentFile document = getDocumentFile(fileOrDirectory, fileOrDirectory.isDirectory(), ctx);
+//            if (!document.delete()) {
+//                Log.d("Util", "Delete impossible " + document.getName() );
+//            }
+//        }
+//    }
+
+//    public static DocumentFile getDocumentFile(final File file, final boolean isDirectory, final Context ctx) {
+////        String baseFolder = getExtSdCardFolder(file, ctx);
+////        if (baseFolder == null) {
+////            return null;
+////        }
+//
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+//        String uriString = preferences.getString("TREE_URI", null);
+//        if (uriString == null) {
+//            return null;
+//        }
+//        Uri treeUri = Uri.parse(uriString);
+//
+//        if (treeUri == null) {
+//            return null;
+//        }
+//        String racine = treeUri.getLastPathSegment();
+//        if (racine.indexOf(":") > 0) {
+//            if (racine.indexOf(":") + 1 == racine.length()) {
+//                racine = racine.substring(0, racine.length() - 1);
+//            }
+//            else {
+//                racine = racine.substring(racine.indexOf(":") + 1);
+//            }
+//        }
+//
+//        // start with root of SD card and then parse through document tree.
+//        DocumentFile document = DocumentFile.fromTreeUri(ctx, treeUri);
+//
+//        String relativePath = null;
+//        try {
+//            String fullPath = file.getCanonicalPath();
+//            relativePath = fullPath.substring(fullPath.indexOf(racine) + racine.length() + 1);
+//        }
+//        catch (IOException e) {
+//            return null;
+//        }
+//
+//        String[] parts = relativePath.split("\\/");
+//        for (int i = 0; i < parts.length; i++) {
+//            DocumentFile nextDocument = document.findFile(parts[i]);
+//
+//            if (nextDocument == null) {
+//                if ((i < parts.length - 1) || isDirectory) {
+//                    nextDocument = document.createDirectory(parts[i]);
+//                }
+//                else {
+//                    nextDocument = document.createFile("image", parts[i]);
+//                }
+//            }
+//            document = nextDocument;
+//        }
+//
+//        return document;
+//    }
+
+//    public static String getExtSdCardFolder(final File file, final Context ctx) {
+//        String[] extSdPaths = getExtSdCardPaths(ctx);
+//        try {
+//            for (int i = 0; i < extSdPaths.length; i++) {
+//                if (file.getCanonicalPath().startsWith(extSdPaths[i])) {
+//                    return extSdPaths[i];
+//                }
+//            }
+//        }
+//        catch (IOException e) {
+//            return null;
+//        }
+//        return null;
+//    }
+//
+//    /**
+//     * Get a list of external SD card paths. (Kitkat or higher.)
+//     *
+//     * @return A list of external SD card paths.
+//     */
+//     private static String[] getExtSdCardPaths(final Context ctx) {
+//        List<String> paths = new ArrayList<>();
+//        for (File file : ctx.getExternalFilesDirs("external")) {
+//            if (file != null && !file.equals(ctx.getExternalFilesDir("external"))) {
+//                int index = file.getAbsolutePath().lastIndexOf("/Android/data");
+//                if (index < 0) {
+//                    Log.w("Utils", "Unexpected external file dir: " + file.getAbsolutePath());
+//                }
+//                else {
+//                    String path = file.getAbsolutePath().substring(0, index);
+//                    try {
+//                        path = new File(path).getCanonicalPath();
+//                    }
+//                    catch (IOException e) {
+//                        // Keep non-canonical path.
+//                    }
+//                    paths.add(path);
+//                }
+//            }
+//        }
+//        return paths.toArray(new String[paths.size()]);
+//    }
+
+
 }

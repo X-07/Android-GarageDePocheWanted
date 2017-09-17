@@ -12,7 +12,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="50dp"
         android:textSize="20sp"
-        android:textColor="#36007F"
+        android:textColor="@color/app_blue1"
         android:textStyle="bold"
         android:text="Critères de tri"
         />
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
+            android:textColor="@color/app_black1"
             android:textStyle="bold"
             android:text="-"
             />
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
+            android:textColor="@color/app_black1"
             android:textStyle="bold"
             android:text="-"
             />
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
+            android:textColor="@color/app_black1"
             android:textStyle="bold"
             android:text="-"
             />
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
+            android:textColor="@color/app_black1"
             android:textStyle="bold"
             android:text="-"
             />
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
+            android:textColor="@color/app_black1"
             android:textStyle="bold"
             android:text="-"
             />
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
+            android:textColor="@color/app_black1"
             android:textStyle="bold"
             android:text="-"
             />
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
+            android:textColor="@color/app_black1"
             android:textStyle="bold"
             android:text="-"
             />
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
+            android:textColor="@color/app_black1"
             android:textStyle="bold"
             android:text="-"
             />
@@ -113,7 +113,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
+            android:textColor="@color/app_black1"
             android:textStyle="bold"
             android:text="Croissant (défaut)"
             android:layout_weight="1"
@@ -124,7 +124,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="#000000"
+            android:textColor="@color/app_black1"
             android:textStyle="bold"
             android:text="Décroissant"
             android:layout_weight="1"
@@ -138,7 +138,7 @@
         android:layout_above="@+id/sortFicheLayout01"
         android:layout_marginLeft="40dp"
         android:textSize="15sp"
-        android:textColor="#000000"
+        android:textColor="@color/app_black1"
         android:textStyle="bold"
         android:text="Séparateur de catégorie."
         />
@@ -161,7 +161,7 @@
             android:textAllCaps="false"
             android:textStyle="bold|italic"
             android:text="Valider"
-            android:textColor="#ff0000ca"
+            android:textColor="@color/app_blue2"
             android:typeface="serif"
             />
         <Button
@@ -173,7 +173,7 @@
             android:textAllCaps="false"
             android:textStyle="bold|italic"
             android:text="Annuler"
-            android:textColor="#ffffffff"
+            android:textColor="@color/app_white1"
             android:typeface="serif"
             />
     </LinearLayout>

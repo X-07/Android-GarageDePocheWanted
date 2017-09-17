@@ -28,7 +28,7 @@
             android:focusableInTouchMode="true"
 
             android:textSize="26sp"
-            android:textColor="#404040"
+            android:textColor="@color/app_gray1"
             android:textStyle="bold"
 
             android:text="TextView"
@@ -110,7 +110,7 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="#404040"
+                    android:textColor="@color/app_gray1"
                     android:gravity="right"
                     android:text="TextView"
                     />
@@ -138,7 +138,7 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="#404040"
+                    android:textColor="@color/app_gray1"
                     android:gravity="right"
                     android:text="TextView"
                     />
@@ -166,7 +166,7 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="#404040"
+                    android:textColor="@color/app_gray1"
                     android:gravity="right"
                     android:text="TextView"
                     />
@@ -194,7 +194,7 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="#404040"
+                    android:textColor="@color/app_gray1"
                     android:gravity="right"
                     android:text="TextView"
                     />
@@ -222,7 +222,7 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="#404040"
+                    android:textColor="@color/app_gray1"
                     android:gravity="right"
                     android:text="TextView"
                     />
@@ -251,7 +251,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="3dp"
                     android:textSize="20sp"
-                    android:textColor="#404040"
+                    android:textColor="@color/app_gray1"
                     android:gravity="right"
                     android:text="TextView"
                     />
@@ -279,7 +279,7 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="#404040"
+                    android:textColor="@color/app_gray1"
                     android:gravity="right"
                     android:text="TextView"
                     />
@@ -307,7 +307,7 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="#404040"
+                    android:textColor="@color/app_gray1"
                     android:gravity="right"
                     android:text="TextView"
                     />
@@ -335,7 +335,7 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="#404040"
+                    android:textColor="@color/app_gray1"
                     android:gravity="right"
                     android:text="TextView"
                     />
@@ -363,7 +363,7 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="#404040"
+                    android:textColor="@color/app_gray1"
                     android:gravity="right"
                     android:text="TextView"
                     />

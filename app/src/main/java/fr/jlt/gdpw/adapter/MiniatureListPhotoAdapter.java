@@ -156,11 +156,13 @@ public class MiniatureListPhotoAdapter extends CursorAdapter {
         holder.textViewLib1.setText(cursor.getString(cursor.getColumnIndex(MiniatureCste.MARQUE)));
         holder.textViewLib2.setText(Utils.convertDate(cursor.getString(cursor.getColumnIndex(MiniatureCste.DATESORTIE))));
         StringBuffer sb = new StringBuffer();
-        if (!"cadeau".equals(cursor.getString(cursor.getColumnIndex(MiniatureCste.REFERENCE)).trim().toLowerCase())) {
-            sb.append("N° ");
+        if (cursor.getString(cursor.getColumnIndex(MiniatureCste.REFERENCE)) != null) {
+            if (!"cadeau".equals(cursor.getString(cursor.getColumnIndex(MiniatureCste.REFERENCE)).trim().toLowerCase())) {
+                sb.append("N° ");
+            }
+            sb.append(cursor.getString(cursor.getColumnIndex(MiniatureCste.REFERENCE)));
+            sb.append(" - ");
         }
-        sb.append(cursor.getString(cursor.getColumnIndex(MiniatureCste.REFERENCE)));
-        sb.append(" - ");
         if ("1".equals(cursor.getString(cursor.getColumnIndex(MiniatureCste.TROUVE)))) {
             sb.append("trouvé".toUpperCase());
         }
@@ -168,28 +170,39 @@ public class MiniatureListPhotoAdapter extends CursorAdapter {
             sb.append(Utils.getPreference(cursor.getString(cursor.getColumnIndex(MiniatureCste.PREFERENCE))));
         }
         holder.textViewLib3.setText(sb.toString());
-        holder.textViewLib4.setText(cursor.getString(cursor.getColumnIndex(MiniatureCste.PRIX)) + " €");
-
-        String imageName = cursor.getString(cursor.getColumnIndex(MiniatureCste.PHOTO));
-        Bitmap bmp = BitmapFactory.decodeFile(Utils.getExternalFilesDir(context) + "/cached" + imageName);
-        if (bmp != null) {
-            holder.imageView.setImageBitmap(bmp);
+        if (cursor.getString(cursor.getColumnIndex(MiniatureCste.PRIX)) != null) {
+            holder.textViewLib4.setText(cursor.getString(cursor.getColumnIndex(MiniatureCste.PRIX)) + " €");
         }
         else {
-            File fileDest = new File(Utils.getExternalFilesDir(context), imageName);
-            File fileCacheDest = new File(Utils.getExternalFilesDir(context) + "/cached", imageName);
-            Utils.makeDirs(fileCacheDest);
-            bmp = Utils.decodeSampledBitmapFromUri(fileDest.getAbsolutePath(), 200, 150);
+            holder.textViewLib4.setText("-.-- €");
+
+        }
+
+        String imageName = cursor.getString(cursor.getColumnIndex(MiniatureCste.PHOTO));
+        if (Utils.isNotEmptyOrNull(imageName)) {
+            Bitmap bmp = BitmapFactory.decodeFile(Utils.getExternalFilesDir(context) + "/cached" + imageName);
             if (bmp != null) {
-                Utils.StoreImage(bmp, fileCacheDest);
                 holder.imageView.setImageBitmap(bmp);
             }
             else {
-                holder.imageView.setImageResource(R.drawable.silhouette_small);
+                File fileDest = new File(Utils.getExternalFilesDir(context), imageName);
+                File fileCacheDest = new File(Utils.getExternalFilesDir(context) + "/cached", imageName);
+                Utils.makeDirs(fileCacheDest, true);
+                bmp = Utils.decodeSampledBitmapFromUri(fileDest.getAbsolutePath(), 200, 150);
+                if (bmp != null) {
+                    Utils.StoreImage(bmp, fileCacheDest);
+                    holder.imageView.setImageBitmap(bmp);
+                }
+                else {
+                    holder.imageView.setImageResource(R.drawable.silhouette_small);
+                }
             }
+            // on stocke le nom de la grande photo en tant que tag dans la petite photo
+            holder.imageView.setTag(Utils.getExternalFilesDir(context) + imageName);
         }
-        // on stocke le nom de la grande photo en tant que tag dans la petite photo
-        holder.imageView.setTag(Utils.getExternalFilesDir(context) + imageName);
+        else {
+            holder.imageView.setImageResource(R.drawable.silhouette_small);
+        }
     }
 
     /**

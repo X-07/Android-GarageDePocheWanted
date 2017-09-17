@@ -33,7 +33,7 @@
             android:gravity="center"
             android:layout_marginBottom="-11dp"
             android:textSize="10sp"
-            android:textColor="@color/app_color"
+            android:textColor="@color/app_red1"
             android:textStyle="bold"
             android:text="1234"
             />
@@ -45,7 +45,7 @@
             android:layout_alignEnd="@+id/miniatureListPhotoLogo"
             android:layout_marginTop="-2dp"
             android:layout_marginRight="-4dp"
-            android:textColor="#977"
+            android:textColor="@color/app_red1"
             android:textSize="9sp"
             android:textStyle="bold"
             android:text="@string/app_version"
