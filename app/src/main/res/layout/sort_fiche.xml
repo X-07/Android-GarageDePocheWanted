@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/sortFicheTit1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="50dp"
+        android:textSize="20sp"
+        android:textColor="#36007F"
+        android:textStyle="bold"
+        android:text="Critères de tri"
+        />
+
+
+    <RadioGroup
+        android:id="@+id/sortFicheRadioGroup0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sortFicheTit1"
+        android:paddingLeft="40dp"
+        >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="-"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="-"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="-"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="-"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="-"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="-"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="-"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="-"
+            />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/sortFicheRadioGroup2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sortFicheCheckBox"
+        android:paddingLeft="40dp"
+        android:orientation="horizontal"
+        >
+
+        <RadioButton
+            android:id="@+id/sortFicheRadio20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="Croissant (défaut)"
+            android:layout_weight="1"
+            />
+
+        <RadioButton
+            android:id="@+id/sortFicheRadio21"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="Décroissant"
+            android:layout_weight="1"
+            />
+    </RadioGroup>
+
+    <CheckBox
+        android:id="@+id/sortFicheCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sortFicheLayout01"
+        android:layout_marginLeft="40dp"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:text="Séparateur de catégorie."
+        />
+
+    <LinearLayout
+        android:id="@+id/sortFicheLayout01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        >
+        <Button
+            android:id="@+id/sortFicheBoutonValider"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:background="@mipmap/ic_btn_light"
+            android:textAllCaps="false"
+            android:textStyle="bold|italic"
+            android:text="Valider"
+            android:textColor="#ff0000ca"
+            android:typeface="serif"
+            />
+        <Button
+            android:id="@+id/sortFicheNameBoutonAnnuler"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/ic_btn_dark"
+            android:textAllCaps="false"
+            android:textStyle="bold|italic"
+            android:text="Annuler"
+            android:textColor="#ffffffff"
+            android:typeface="serif"
+            />
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

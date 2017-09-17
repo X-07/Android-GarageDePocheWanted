@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="2dp"
+    >
+
+    <TextView
+        android:id="@+id/miniatureListPhotoRowSeparator"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+
+        android:padding="1dp"
+        android:gravity="center_horizontal"
+
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:background="#766"
+        android:textColor="#ddd"
+
+        android:shadowColor="#000"
+        android:shadowDx="-7"
+        android:shadowDy="3"
+        android:shadowRadius="5"
+
+        android:text="Separator"
+        />
+
+    <TextView
+        android:id="@+id/miniatureListPhotoRowModele"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/miniatureListPhotoRowSeparator"
+
+        android:singleLine="true"
+        android:scrollHorizontally="true"
+
+        android:textSize="24sp"
+        android:textColor="@color/app_color"
+        android:textStyle="bold"
+        android:text="TextView"
+        />
+
+    <ImageView
+        android:id="@+id/miniatureListPhotoRowPhoto"
+        android:layout_width="150dp"
+        android:layout_height="112dp"
+        android:layout_alignLeft="@+id/miniatureListPhotoRowModele"
+        android:layout_below="@+id/miniatureListPhotoRowModele"
+        android:paddingBottom="2dp"
+        android:paddingRight="5dp"
+        android:onClick="photoPleinEcran"
+        />
+
+    <TextView
+        android:id="@+id/miniatureListPhotoRowLib1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/miniatureListPhotoRowPhoto"
+        android:layout_toRightOf="@+id/miniatureListPhotoRowPhoto"
+        android:textSize="20sp"
+        android:textColor="#404040"
+        android:text="TextView"
+        />
+
+    <TextView
+        android:id="@+id/miniatureListPhotoRowLib2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/miniatureListPhotoRowLib1"
+        android:layout_toRightOf="@+id/miniatureListPhotoRowPhoto"
+        android:textSize="20sp"
+        android:textColor="#404040"
+        android:text="TextView"
+        />
+
+    <TextView
+        android:id="@+id/miniatureListPhotoRowLib3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/miniatureListPhotoRowLib2"
+        android:layout_toRightOf="@+id/miniatureListPhotoRowPhoto"
+        android:textSize="20sp"
+        android:textColor="#404040"
+        android:text="TextView"
+        />
+
+    <TextView
+        android:id="@+id/miniatureListPhotoRowLib4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/miniatureListPhotoRowLib3"
+        android:layout_toRightOf="@+id/miniatureListPhotoRowPhoto"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:textStyle="bold|italic"
+        android:paddingTop="4dp"
+        android:text="TextView"
+        />
+
+</RelativeLayout>
