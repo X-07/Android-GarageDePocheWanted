@@ -10,6 +10,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
+ * Classe utilitaire
  * Created by jluc1404x on 18/07/15.
  */
 public class Utils {
@@ -173,6 +175,15 @@ public class Utils {
         File dir = new File(path);
         if (!dir.exists()) {
             dir.mkdirs();
+
+            // Fichier qui va indiquer au système que notre dossier ne contient rien qui intéresse la galerie
+            File nomedia = new File(path + "/.nomedia");
+            try {
+                nomedia.createNewFile();
+            }
+            catch (IOException e) {
+                Log.d("makeDirs '.nomedia' ", e.getMessage());
+            }
         }
     }
 
@@ -203,6 +214,18 @@ public class Utils {
         }
         catch (Exception e) {
             Log.d("copyFile", e.getMessage());
+        }
+
+        // Fichier qui va indiquer au système que notre dossier ne contient rien qui intéresse la galerie
+        String path = source.getParent();
+        File nomedia = new File(path + "/.nomedia");
+        if (!nomedia.exists()) {
+            try {
+                nomedia.createNewFile();
+            }
+            catch (IOException e) {
+                Log.d("copyFile '.nomedia' ", e.getMessage());
+            }
         }
     }
 

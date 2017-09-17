@@ -8,10 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.File;
-import java.util.StringTokenizer;
 
 import fr.jlt.gdpw.R;
 import fr.jlt.gdpw.activity.MiniaturePhotoActivity;
@@ -29,6 +25,7 @@ import fr.jlt.gdpw.utils.Utils;
 
 
 /**
+ * classe Adapter permettant d'afficher le ListView de MiniatureListPhotoMainActivity
  * Created by jluc1404x on 18/07/15.
  */
 public class MiniatureListPhotoAdapter extends CursorAdapter {
@@ -137,7 +134,8 @@ public class MiniatureListPhotoAdapter extends CursorAdapter {
         holder.textViewName.setText(cursor.getString(cursor.getColumnIndex(MiniatureCste.RUBRIQUE)));
         if ("1".equals(cursor.getString(cursor.getColumnIndex(MiniatureCste.TROUVE)))) {
             holder.textViewName.setPaintFlags(holder.textViewName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            view.setBackgroundColor(context.getResources().getColor(R.color.app_color));
+            //view.setBackgroundColor(context.getResources().getColor(R.color.app_color));
+            view.setBackgroundColor(Color.LTGRAY);
             holder.textViewName.setTextColor(Color.WHITE);
             holder.textViewLib1.setTextColor(Color.WHITE);
             holder.textViewLib2.setTextColor(Color.WHITE);
@@ -145,13 +143,14 @@ public class MiniatureListPhotoAdapter extends CursorAdapter {
             holder.textViewLib4.setTextColor(Color.WHITE);
         }
         else {
-            holder.textViewName.setPaintFlags(holder.textViewName.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+            holder.textViewName.setPaintFlags(holder.textViewName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             view.setBackgroundColor(Color.WHITE);
-            holder.textViewName.setTextColor(context.getResources().getColor(R.color.app_color));
+            //holder.textViewName.setTextColor(context.getResources().getColor(R.color.app_color));
+            holder.textViewName.setTextColor(Color.BLACK);
             holder.textViewLib1.setTextColor(Color.GRAY);
             holder.textViewLib2.setTextColor(Color.GRAY);
             holder.textViewLib3.setTextColor(Color.GRAY);
-            holder.textViewLib4.setTextColor(Color.BLACK);
+            holder.textViewLib4.setTextColor(Color.DKGRAY);
         }
 
         holder.textViewLib1.setText(cursor.getString(cursor.getColumnIndex(MiniatureCste.MARQUE)));
@@ -172,13 +171,13 @@ public class MiniatureListPhotoAdapter extends CursorAdapter {
         holder.textViewLib4.setText(cursor.getString(cursor.getColumnIndex(MiniatureCste.PRIX)) + " €");
 
         String imageName = cursor.getString(cursor.getColumnIndex(MiniatureCste.PHOTO));
-        Bitmap bmp = BitmapFactory.decodeFile(Utils.getExternalCacheDir(context) + imageName);
+        Bitmap bmp = BitmapFactory.decodeFile(Utils.getExternalFilesDir(context) + "/cached" + imageName);
         if (bmp != null) {
             holder.imageView.setImageBitmap(bmp);
         }
         else {
             File fileDest = new File(Utils.getExternalFilesDir(context), imageName);
-            File fileCacheDest = new File(Utils.getExternalCacheDir(context), imageName);
+            File fileCacheDest = new File(Utils.getExternalFilesDir(context) + "/cached", imageName);
             Utils.makeDirs(fileCacheDest);
             bmp = Utils.decodeSampledBitmapFromUri(fileDest.getAbsolutePath(), 200, 150);
             if (bmp != null) {

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
+ * classe permettant de dérer la base SQLite
  * Created by jluc1404x on 18/07/15.
  */
 public class BddSQLiteHelper extends SQLiteOpenHelper {

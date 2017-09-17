@@ -1,7 +1,6 @@
 package fr.jlt.gdpw.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -22,10 +21,10 @@ import fr.jlt.gdpw.data.OrderDataBean;
 import fr.jlt.gdpw.metier.MiniatureCste;
 
 /**
+ * classe permettant de frier la liste des miniature à afficher
  * Created by jluc1404x on 18/07/15.
  */
 public class SortFicheActivity extends Activity {
-    private Context context;
     List<OrderDataBean> orderList;
 
     @Override
@@ -33,7 +32,6 @@ public class SortFicheActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sort_fiche);
-        context = this;
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         orderList = new ArrayList<OrderDataBean>();
@@ -46,7 +44,7 @@ public class SortFicheActivity extends Activity {
         orderList.add(new OrderDataBean(6, MiniatureCste.FABRICANT, "par fabricant."))    ;
         orderList.add(new OrderDataBean(7, MiniatureCste.DATESORTIE, "par date de sortie."))    ;
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String ordre = preferences.getString("ORDRE", MiniatureCste.RUBRIQUE);
 
         RadioGroup radioGroup0 = (RadioGroup) findViewById(R.id.sortFicheRadioGroup0);
@@ -142,7 +140,7 @@ public class SortFicheActivity extends Activity {
                 }
 
 //                Toast.makeText(context, " ORDRE : '" + ordre + "' - SENS : '" + sens + "'" , Toast.LENGTH_SHORT).show();
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("ORDRE", ordre);
                 editor.putString("SENS", sens);

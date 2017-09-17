@@ -14,10 +14,10 @@ import com.imagezoom.ImageAttacher.OnMatrixChangedListener;
 import com.imagezoom.ImageAttacher.OnPhotoTapListener;
 
 import fr.jlt.gdpw.R;
-import fr.jlt.gdpw.metier.MiniatureCste;
 
 
 /**
+ * Classe permettant d'afficher une photo de la miniature en plein écran
  * Created by jluc1404x on 18/07/15.
  */
 public class MiniaturePhotoActivity extends Activity {

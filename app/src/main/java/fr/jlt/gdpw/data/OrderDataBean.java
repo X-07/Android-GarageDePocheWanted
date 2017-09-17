@@ -1,6 +1,7 @@
 package fr.jlt.gdpw.data;
 
 /**
+ * classe représentant le critère de trie à effectuer sur la liste
  * Created by jluc1404x on 18/07/15.
  */
 public class OrderDataBean {

@@ -1,53 +1,33 @@
 package fr.jlt.gdpw.utils;
 
-import android.app.Activity;
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.os.Environment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Scanner;
 
 import fr.jlt.gdpw.donneesDAO.Miniature;
-import fr.jlt.gdpw.metier.MiniatureCste;
 import fr.jlt.gdpw.table.MiniatureBDD;
 
 /**
+ * classe permettant d'importer un fichier .csv dans la base SQLite
  * Created by jluc1404x on 18/07/15.
  */
 public class ImportMiniature {
-    /** ctx */
-    private Context ctx = null;
     /** bdd */
     private SQLiteDatabase bdd = null;
 
-    /** items */
-    private String[] items = null;
-    /** nom : String */
-    private String nom = null;
-    /** nbLignes : int */
-    private int nbLignes = 0;
-    /** nbAdd : int */
-    private int nbAdd = 0;
-    /** nbMaj : int */
-    private int nbMaj = 0;
+    /** externalFilesDir */
+    private String externalFilesDir = null;
     /** path : int */
     private String path = null;
 
-    public ImportMiniature(Context ctx, SQLiteDatabase bdd) {
-        this.ctx = ctx;
+    public ImportMiniature(SQLiteDatabase bdd, String externalFilesDir) {
         this.bdd = bdd;
+        this.externalFilesDir = externalFilesDir;
     }
 
     public void importFile(String listeMiniatures) {
@@ -59,29 +39,25 @@ public class ImportMiniature {
             Scanner scanner = new Scanner(fis);
             while (scanner.hasNext()) {
                 line = scanner.nextLine();
-                nbLignes++;
-                importLine(line);
+                importLine(bdd, line, path, externalFilesDir);
             }
-            Toast.makeText(ctx, nbLignes + " fiches importées.\n  - " + nbAdd + " nouvelles\n  - " + nbMaj + " modifiées", Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
-            Toast.makeText(ctx, " Fichier absent : " + listeMiniatures, Toast.LENGTH_LONG).show();
+            Log.d("ImportMiniature", " Fichier absent : " + listeMiniatures);
         }
-        listeMini.delete();
     }
 
     /**
      * Convertir une ligne du fichier en enregistrement dans la table
      * @param line String
      */
-    private void importLine(final String line) {
+    public static Boolean importLine(final SQLiteDatabase bdd, final String line, final String path, final String externalFilesDir) {
+        Boolean ajout = null;
         //items = line.split("\\|");
-        items = line.split("\\|", -1);    //TO DO vérifier le -1 !
-        if ("Modele".equals(items[0].trim())) {
-            // on saute la ligne d'entête
-            nbLignes--;
-        } else {
-            ajoutMiniature();
+        String[] items = line.split("\\|", -1);    //TO DO vérifier le -1 !
+        if (!"Modele".equals(items[0].trim())) {
+            ajout = ajoutMiniature(bdd, line, path, externalFilesDir);
         }
+        return ajout;
     }
 
 
@@ -91,7 +67,9 @@ public class ImportMiniature {
      * Convertir une ligne du fichier en enregistrement dans la table
      * @return Table
      */
-    private void ajoutMiniature() {
+    public static Boolean ajoutMiniature(final SQLiteDatabase bdd, final String line, final String path, final String externalFilesDir) {
+        Boolean ajout = null;
+        String[] items = line.split("\\|", -1);
         Miniature miniature = new Miniature();
 
         int i = 0;
@@ -100,14 +78,16 @@ public class ImportMiniature {
 
         String trouve;
         try {
+            //Log.d("ImportMiniature", "mise à jour : " + miniature.getModele());
             Miniature miniatureOld = MiniatureBDD.get(miniature.getModele(), bdd);
             trouve = miniatureOld.getTrouve();
             MiniatureBDD.delete(miniature.getModele(), bdd);
-            nbMaj++;
+            ajout = false;
         }
         catch (Exception e) {
+            //Log.d("ImportMiniature", "ajout : " + miniature.getModele());
             trouve = "0";
-            nbAdd++;
+            ajout = true;
         }
 
         miniature.setMarque(items[i++]);
@@ -131,16 +111,17 @@ public class ImportMiniature {
 
         //Déplace la photo dans l'espace privée de l'appli.
         File fileSrc = new File(path + miniature.getPhoto());
-        File fileDest = new File(Utils.getExternalFilesDir(ctx), miniature.getPhoto());
+        File fileDest = new File(externalFilesDir, miniature.getPhoto());
         Utils.makeDirs(fileDest);
         Utils.copyFile(fileSrc, fileDest);
         fileSrc.delete();
 
         //crée une miniature et la met en cache
-        File fileCacheDest = new File(Utils.getExternalCacheDir(ctx), miniature.getPhoto());
+        File fileCacheDest = new File(externalFilesDir + "/cached", miniature.getPhoto());
         Utils.makeDirs(fileCacheDest);
         Bitmap bmp = Utils.decodeSampledBitmapFromUri(fileDest.getAbsolutePath(), 200, 150);
         Utils.StoreImage(bmp, fileCacheDest);
 
+        return ajout;
     }
 }

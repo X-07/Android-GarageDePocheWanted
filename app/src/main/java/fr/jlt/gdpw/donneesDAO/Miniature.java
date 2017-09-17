@@ -1,6 +1,7 @@
 package fr.jlt.gdpw.donneesDAO;
 
 /**
+ * classe representant la table Miniature
  * Created by jluc1404x on 18/07/15.
  */
 public class Miniature {

@@ -28,8 +28,9 @@
             android:focusableInTouchMode="true"
 
             android:textSize="26sp"
-            android:textColor="@color/app_color"
+            android:textColor="#404040"
             android:textStyle="bold"
+
             android:text="TextView"
             />
     </RelativeLayout>

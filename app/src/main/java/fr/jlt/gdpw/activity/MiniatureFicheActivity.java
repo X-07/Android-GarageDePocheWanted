@@ -8,7 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -17,15 +17,15 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.jar.JarEntry;
-
 import fr.jlt.gdpw.R;
 import fr.jlt.gdpw.donneesDAO.Miniature;
 import fr.jlt.gdpw.metier.BddSQLiteHelper;
 import fr.jlt.gdpw.table.MiniatureBDD;
 import fr.jlt.gdpw.utils.Utils;
 
-
+/**
+ * classe permettant d'afficher le contenu d'une fiche d'une miniature
+ */
 public class MiniatureFicheActivity extends Activity {
     private String imageName = null;
     private Miniature miniature;
@@ -96,7 +96,8 @@ public class MiniatureFicheActivity extends Activity {
         tit01.setText("Objectif :");
         tit01.setTypeface(lib05.getTypeface(), Typeface.BOLD);
         lib01.setText(Utils.getPreference(miniature.getPreference()));
-        lib01.setTextColor(Color.rgb(130, 0, 0));
+        //lib01.setTextColor(getResources().getColor(R.color.app_color));
+        lib01.setTextColor(Color.GRAY);
         lib01.setTypeface(lib05.getTypeface(), Typeface.BOLD_ITALIC);
 
         tit02.setText("Marque :");

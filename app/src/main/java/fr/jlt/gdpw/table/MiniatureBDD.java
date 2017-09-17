@@ -10,6 +10,7 @@ import fr.jlt.gdpw.metier.MiniatureCste;
 
 
 /**
+ * classe permettant de gérer (ajout, suppression, lecture, cursor ..) la table Miniature
  * Created by jluc1404x on 18/07/15.
  */
 public class MiniatureBDD {

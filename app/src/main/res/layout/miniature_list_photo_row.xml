@@ -18,7 +18,7 @@
 
         android:textSize="28sp"
         android:textStyle="bold"
-        android:background="#766"
+        android:background="@color/app_color"
         android:textColor="#ddd"
 
         android:shadowColor="#000"
@@ -40,7 +40,7 @@
         android:scrollHorizontally="true"
 
         android:textSize="24sp"
-        android:textColor="@color/app_color"
+        android:textColor="#000000"
         android:textStyle="bold"
         android:text="TextView"
         />
@@ -96,7 +96,7 @@
         android:layout_below="@+id/miniatureListPhotoRowLib3"
         android:layout_toRightOf="@+id/miniatureListPhotoRowPhoto"
         android:textSize="20sp"
-        android:textColor="#000"
+        android:textColor="#404040"
         android:textStyle="bold|italic"
         android:paddingTop="4dp"
         android:text="TextView"

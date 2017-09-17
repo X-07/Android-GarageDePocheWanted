@@ -1,7 +1,6 @@
 package fr.jlt.gdpw.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -24,6 +23,7 @@ import fr.jlt.gdpw.metier.MiniatureCste;
 import fr.jlt.gdpw.table.MiniatureBDD;
 
 /**
+ * classe permettant d'afficher la liste des miniatures sous forme de liste avec photo et les principales caractèristiquessimple
  * Created by jluc1404x on 18/07/15.
  */
 public class MiniatureListPhotoMainActivity extends Activity {
@@ -31,7 +31,6 @@ public class MiniatureListPhotoMainActivity extends Activity {
     private TextView textView;
     private BddSQLiteHelper helper;
     private SQLiteDatabase bdd;
-    private Context context;
     Cursor cursor;
 
     @Override
@@ -39,9 +38,7 @@ public class MiniatureListPhotoMainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.miniature_list_photo);
 
-        context = this;
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String ordre = preferences.getString("ORDRE", MiniatureCste.RUBRIQUE);
         String sens = preferences.getString("SENS", "ASC");
 
@@ -50,7 +47,7 @@ public class MiniatureListPhotoMainActivity extends Activity {
         cursor = MiniatureBDD.getAllList(bdd, ordre, sens);
         if (cursor.getCount() == 0) {
             // la base est vide ==> il faut la recharger
-            Intent intent = new Intent(context, BddLoadActivity.class);
+            Intent intent = new Intent(this, BddLoadActivity.class);
             startActivityForResult(intent, ActivityCste.REQUEST_CODE_LOAD_BDD);
         }
 
@@ -69,7 +66,7 @@ public class MiniatureListPhotoMainActivity extends Activity {
                 // Get the cursor, positioned to the corresponding row in the result set
                 Cursor cursor = (Cursor) listView.getItemAtPosition(position);
 
-                Intent intent = new Intent(context, MiniatureFicheActivity.class);
+                Intent intent = new Intent(view.getContext(), MiniatureFicheActivity.class);
                 intent.putExtra("id", cursor.getInt(0));
                 startActivityForResult(intent, ActivityCste.REQUEST_CODE_FICHE);
             }
@@ -78,7 +75,7 @@ public class MiniatureListPhotoMainActivity extends Activity {
 
     // plus simple lors de l'appel, mais nécessite la création d'une classe CustomCursorAdapter
     private CursorAdapter useCustomCusorAdapter(Cursor cursor) {
-         return new MiniatureListPhotoAdapter(context, cursor, 0);
+         return new MiniatureListPhotoAdapter(this, cursor, 0);
     }
 
     @Override
@@ -123,7 +120,7 @@ public class MiniatureListPhotoMainActivity extends Activity {
     }
 
     private void restart() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String ordre = preferences.getString("ORDRE", MiniatureCste.RUBRIQUE);
         String sens = preferences.getString("SENS", "ASC");
         cursor = MiniatureBDD.getAllList(bdd, ordre, sens);
@@ -138,7 +135,7 @@ public class MiniatureListPhotoMainActivity extends Activity {
     }
 
     public void handleBddLoadClick(View v) {
-        Intent intent = new Intent(context, BddLoadActivity.class);
+        Intent intent = new Intent(v.getContext(), BddLoadActivity.class);
         startActivityForResult(intent, ActivityCste.REQUEST_CODE_LOAD_BDD);
     }
 
