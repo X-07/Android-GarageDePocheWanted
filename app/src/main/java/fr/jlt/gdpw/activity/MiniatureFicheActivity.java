@@ -3,9 +3,12 @@ package fr.jlt.gdpw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -21,7 +24,7 @@ import fr.jlt.gdpw.utils.Utils;
 
 
 public class MiniatureFicheActivity extends Activity {
-    int imageId = 0;
+    String imageName = null;
     Miniature miniature;
 
     @Override
@@ -38,13 +41,17 @@ public class MiniatureFicheActivity extends Activity {
         bdd.close();
         helper.close();
 
-        imageId = miniature.getPhoto();
+        String ExternalStorageDirectoryPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        imageName = ExternalStorageDirectoryPath + miniature.getPhoto();
 
         TextView name = (TextView) findViewById(R.id.miniatureFicheModele);
         name.setText(miniature.getModele());
 
+        Bitmap bmp = BitmapFactory.decodeFile(imageName);
+
         ImageView img = (ImageView) findViewById(R.id.miniatureFichePhoto);
-        img.setImageResource(imageId);
+        //img.setImageResource(imageId);
+        img.setImageBitmap(bmp);
 
         TextView tit00 = (TextView) findViewById(R.id.miniatureFicheTit00);
         TextView tit01 = (TextView) findViewById(R.id.miniatureFicheTit01);
@@ -149,7 +156,7 @@ public class MiniatureFicheActivity extends Activity {
     // affiche l'image en grand si on clique sur l'image
     public void handleImgClick(View v) {
         Intent intent = new Intent(this, MiniaturePhotoActivity.class);
-        intent.putExtra("idPhoto", imageId);
+        intent.putExtra("idPhoto", imageName);
         startActivity(intent);
     }
 

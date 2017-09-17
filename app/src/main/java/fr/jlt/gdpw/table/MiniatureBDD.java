@@ -141,8 +141,8 @@ public class MiniatureBDD {
         table.setEditeur(cursor.getString(MiniatureCste.COL_EDITEUR));
         table.setFabricant(cursor.getString(MiniatureCste.COL_FABRICANT));
         table.setMarque(cursor.getString(MiniatureCste.COL_MARQUE));
-        table.setPhotoSmall(cursor.getInt(MiniatureCste.COL_PHOTO_SMALL));
-        table.setPhoto(cursor.getInt(MiniatureCste.COL_PHOTO));
+        table.setPhotoSmall(cursor.getString(MiniatureCste.COL_PHOTO_SMALL));
+        table.setPhoto(cursor.getString(MiniatureCste.COL_PHOTO));
         table.setPreference(cursor.getString(MiniatureCste.COL_PREFERENCE));
         table.setReference(cursor.getString(MiniatureCste.COL_REFERENCE));
         table.setPrix(cursor.getString(MiniatureCste.COL_PRIX));

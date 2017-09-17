@@ -21,15 +21,35 @@ public class Miniature {
     /** marque */
     private String marque = null;
     /** photoSmall */
-    private Integer photoSmall = null;
+    //private Integer photoSmall = null;
+    private String photoSmall = null;
     /** photo */
-    private Integer photo = null;
+    //private Integer photo = null;
+    private String photo = null;
     /** preference */
     private String preference = null;
     /** numRef */
     private String reference = null;
     /** prix */
     private String prix = null;
+
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("id : ").append(id).append("\n");
+        sb.append("modele : ").append(modele).append("\n");
+        sb.append("carrosserie : ").append(carrosserie).append("\n");
+        sb.append("collection : ").append(collection).append("\n");
+        sb.append("dateSortie : ").append(dateSortie).append("\n");
+        sb.append("editeur : ").append(editeur).append("\n");
+        sb.append("fabricant : ").append(fabricant).append("\n");
+        sb.append("marque : ").append(marque).append("\n");
+        sb.append("photoSmall : ").append(photoSmall).append("\n");
+        sb.append("photo : ").append(photo).append("\n");
+        sb.append("preference : ").append(preference).append("\n");
+        sb.append("reference : ").append(reference).append("\n");
+        sb.append("prix : ").append(prix).append("\n");
+        return sb.toString();
+    }
 
 
     public Integer getId() {
@@ -96,22 +116,6 @@ public class Miniature {
         this.marque = marque;
     }
 
-    public Integer getPhotoSmall() {
-        return photoSmall;
-    }
-
-    public void setPhotoSmall(Integer photoSmall) {
-        this.photoSmall = photoSmall;
-    }
-
-    public Integer getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Integer photo) {
-        this.photo = photo;
-    }
-
     public String getPreference() {
         return preference;
     }
@@ -135,4 +139,21 @@ public class Miniature {
     public void setPrix(String prix) {
         this.prix = prix;
     }
+
+    public String getPhotoSmall() {
+        return photoSmall;
+    }
+
+    public void setPhotoSmall(String photoSmall) {
+        this.photoSmall = photoSmall;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
 }

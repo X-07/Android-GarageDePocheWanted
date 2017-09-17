@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,14 +141,21 @@ public class MiniatureListPhotoAdapter extends CursorAdapter {
         sb.append(Utils.getPreference(cursor.getString(cursor.getColumnIndex(MiniatureCste.PREFERENCE))));
         holder.textViewLib3.setText(sb.toString());
         holder.textViewLib4.setText(cursor.getString(cursor.getColumnIndex(MiniatureCste.PRIX)) + " €");
-        holder.imageView.setImageResource(cursor.getInt(cursor.getColumnIndex(MiniatureCste.PHOTO_SMALL)));
+        //holder.imageView.setImageResource(cursor.getInt(cursor.getColumnIndex(MiniatureCste.PHOTO_SMALL)));
+
+        String ExternalStorageDirectoryPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String imageName = ExternalStorageDirectoryPath + cursor.getString(cursor.getColumnIndex(MiniatureCste.PHOTO));
+
+        //Bitmap bmp = BitmapFactory.decodeFile(imageNameSmall);
+        Bitmap bmp = Utils.decodeSampledBitmapFromUri(imageName, 200, 150);
+        holder.imageView.setImageBitmap(bmp);
 //        int idPhoto = cursor.getInt(cursor.getColumnIndex(MiniatureCste.PHOTO_SMALL));
 //        BitmapFactory.Options options = new BitmapFactory.Options();
 //        options.inScaled = false;
 //        Bitmap bimtBitmap = BitmapFactory.decodeResource(context.getResources(), idPhoto, options);
 //        holder.imageView.setImageBitmap(bimtBitmap);
-        // on stocke l'id de la grande photo en tant que tag dans la petite photo
-        holder.imageView.setTag(cursor.getInt(cursor.getColumnIndex(MiniatureCste.PHOTO)));
+        // on stocke le nom de la grande photo en tant que tag dans la petite photo
+        holder.imageView.setTag(imageName);
     }
 
     /**
@@ -158,9 +166,9 @@ public class MiniatureListPhotoAdapter extends CursorAdapter {
     public void imageClick(View view) {
         Context context = view.getContext();
         // on recupère l'id de la grande photo dans le tag de la petite
-        Integer idPhoto = (Integer) view.getTag();
+        String imageName = (String) view.getTag();
         Intent intent = new Intent(context, MiniaturePhotoActivity.class);
-        intent.putExtra("idPhoto", idPhoto);
+        intent.putExtra("idPhoto", imageName);
         context.startActivity(intent);
     }
 

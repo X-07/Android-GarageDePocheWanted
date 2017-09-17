@@ -2,8 +2,13 @@ package fr.jlt.gdpw.utils;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -23,12 +28,8 @@ public class ImportMiniature {
     private String[] items = null;
     /** nom : String */
     private String nom = null;
-    /** nbItems : int */
-    private int nbItems = 0;
     /** nbLignes : int */
     private int nbLignes = 0;
-    /** nbTotalLignes : int */
-    private int nbTotalLignes = 0;
 
     public ImportMiniature(Context ctx, SQLiteDatabase bdd) {
         this.ctx = ctx;
@@ -36,17 +37,21 @@ public class ImportMiniature {
     }
 
     public void importFile() {
-        InputStream inputStream = ctx.getResources().openRawResource(R.raw.les_manquees);
-        Scanner scanner = null;
-        String line = null;
-        scanner = new Scanner(inputStream);
-        while (scanner.hasNext()) {
-            line = scanner.nextLine();
-            nbLignes++;
-            nbTotalLignes++;
-            importLine(line);
+        String ExternalStorageDirectoryPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String listeMiniatures = ExternalStorageDirectoryPath + "/GarageDePocheWanted/les_manquees.csv";
+        try {
+            FileInputStream fis = new FileInputStream(listeMiniatures);
+            String line = null;
+            Scanner scanner = new Scanner(fis);
+            while (scanner.hasNext()) {
+                line = scanner.nextLine();
+                nbLignes++;
+                importLine(line);
+            }
+            Toast.makeText(ctx, nbLignes + " fiches importées.", Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
+            Toast.makeText(ctx, " Fichier absent : " + listeMiniatures, Toast.LENGTH_LONG).show();
         }
-        Toast.makeText(ctx, nbLignes + " fiches importées.", Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -72,24 +77,28 @@ public class ImportMiniature {
      * @return Table
      */
     private void ajoutMiniature() {
-        StringTokenizer st = null;
         Miniature miniature = new Miniature();
 
-        miniature.setModele(items[0]);
+        int i = 0;
+
+        miniature.setModele(items[i++]);
 
 //Log.d("ImportMiniature", "Collections : " + miniature.getModele());
 
-        miniature.setMarque(items[1]);
-        miniature.setCollection(items[2]);
-        miniature.setPreference(items[3]);
-        miniature.setReference(items[4]);
-        miniature.setPrix(items[5]);
-        miniature.setDateSortie(items[6].replaceAll("-", "/"));
-        miniature.setCarrosserie(items[7]);
-        miniature.setPhotoSmall(ctx.getResources().getIdentifier(items[8], "drawable", ctx.getPackageName()));
-        miniature.setPhoto(ctx.getResources().getIdentifier(items[9], "drawable", ctx.getPackageName()));
-        miniature.setEditeur(items[10]);
-        miniature.setFabricant(items[11]);
+        miniature.setMarque(items[i++]);
+        miniature.setCollection(items[i++]);
+        miniature.setPreference(items[i++]);
+        miniature.setReference(items[i++]);
+        miniature.setPrix(items[i++]);
+        miniature.setDateSortie(items[i++].replaceAll("-", "/"));
+        miniature.setCarrosserie(items[i++]);
+         //miniature.setPhoto(ctx.getResources().getIdentifier(items[i++], "drawable", ctx.getPackageName()));
+        miniature.setPhoto("/GarageDePocheWanted/Photos/" + items[i++]);
+        miniature.setEditeur(items[i++]);
+        miniature.setFabricant(items[i++]);
+
+        //Log.d("ImportMiniature", "Mini : " + miniature.toString());
+
 
         MiniatureBDD.add(miniature, bdd);
     }

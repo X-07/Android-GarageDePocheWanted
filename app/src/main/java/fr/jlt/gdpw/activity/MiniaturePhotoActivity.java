@@ -31,12 +31,13 @@ public class MiniaturePhotoActivity extends Activity {
 
         mImaView = (ImageView) findViewById(R.id.miniaturePhoto);
 
-        int idPhoto = this.getIntent().getExtras().getInt("idPhoto");
+        String imageName = this.getIntent().getExtras().getString("idPhoto");
         this.getIntent().removeExtra("idPhoto");
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
-        Bitmap bimtBitmap = BitmapFactory.decodeResource(getResources(), idPhoto, options);
+        //Bitmap bimtBitmap = BitmapFactory.decodeResource(getResources(), idPhoto, options);
+        Bitmap bimtBitmap = BitmapFactory.decodeFile(imageName);
         mImaView.setImageBitmap(bimtBitmap);
         usingSimpleImage(mImaView);
 
