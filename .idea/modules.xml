@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GarageDePocheWanted.iml" filepath="$PROJECT_DIR$/GarageDePocheWanted.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pinchzoom/pinchzoom.iml" filepath="$PROJECT_DIR$/pinchzoom/pinchzoom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GarageDePocheWanted.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GarageDePocheWanted.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pinchzoom/GarageDePocheWanted.pinchzoom.iml" filepath="$PROJECT_DIR$/.idea/modules/pinchzoom/GarageDePocheWanted.pinchzoom.iml" />
     </modules>
   </component>
 </project>

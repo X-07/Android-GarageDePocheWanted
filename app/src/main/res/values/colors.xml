@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="app_color_old">#7C0029</color>
-    <color name="app_color">#B2A5A5</color>
+    <color name="app_color_old2">#B2A5A5</color>
+    <color name="app_color">#CCCCCC</color>
     <color name="app_gray1">#404040</color>
     <color name="app_gray2">#FFA3A3A3</color>
     <color name="app_gray3">#DDDDDD</color>

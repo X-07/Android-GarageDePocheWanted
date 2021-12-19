@@ -6,8 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.provider.DocumentFile;
+import androidx.core.content.ContextCompat;
+import androidx.documentfile.provider.DocumentFile;
 import android.util.Log;
 
 import java.io.BufferedOutputStream;

@@ -23,7 +23,7 @@ import fr.jlt.gdpw.metier.MiniatureCste;
 import fr.jlt.gdpw.table.MiniatureBDD;
 
 /**
- * classe permettant d'afficher la liste des miniatures sous forme de liste avec photo et les principales caractèristiquessimple
+ * classe permettant d'afficher la liste des miniatures sous forme de liste avec photo et les principales caractèristiques
  * Created by jluc1404x on 18/07/15.
  */
 public class MiniatureListPhotoMainActivity extends Activity {
