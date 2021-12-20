@@ -222,7 +222,7 @@ public class Utils {
         }
 
         // Fichier qui va indiquer au système que notre dossier ne contient rien qui intéresse la galerie
-        String path = source.getParent();
+        String path = dest.getParent();
         File nomedia = new File(path + "/.nomedia");
         if (!nomedia.exists()) {
             try {
