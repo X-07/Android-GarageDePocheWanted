@@ -24,6 +24,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -101,6 +103,31 @@ public class BddLoadActivity extends Activity {
         if (cursor.getCount() == 0) {
             checkBoxPurge.setEnabled(false);
             checkBoxPurge.setTextColor(Color.GRAY);
+        } else {
+            checkBoxPurge.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    RadioButton radio20 = (RadioButton) findViewById(R.id.bddLoadRadio20);
+                    RadioButton radio21 = (RadioButton) findViewById(R.id.bddLoadRadio21);
+                    RadioButton radio22 = (RadioButton) findViewById(R.id.bddLoadRadio22);
+                    if (isChecked) {
+                        radio20.setEnabled(false);
+                        radio20.setChecked(true);
+                        radio20.setTextColor(Color.GRAY);
+                        radio21.setEnabled(false);
+                        radio21.setTextColor(Color.GRAY);
+                        radio22.setEnabled(false);
+                        radio22.setTextColor(Color.GRAY);
+                    } else {
+                        radio20.setEnabled(true);
+                        radio20.setTextColor(Color.BLACK);
+                        radio21.setEnabled(true);
+                        radio21.setTextColor(Color.BLACK);
+                        radio22.setEnabled(true);
+                        radio22.setTextColor(Color.BLACK);
+                    }
+                }
+            });
         }
 
         Button boutonModifier = (Button) findViewById(R.id.bddLoadBoutonModifier);

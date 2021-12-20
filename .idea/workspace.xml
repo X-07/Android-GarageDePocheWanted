@@ -11,7 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a0c81e75-5bf5-4122-8c57-a252cd494c13" name="Default" comment="Init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/jlt/gdpw/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/jlt/gdpw/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/jlt/gdpw/activity/BddLoadActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/jlt/gdpw/activity/BddLoadActivity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +21,7 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/jluc20mx/.android/avd/Pixel_2_API_23.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/jluc20mx/.android/avd/Pixel_2_API_24.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
